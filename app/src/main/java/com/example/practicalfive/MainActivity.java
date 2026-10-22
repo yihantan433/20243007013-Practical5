@@ -1,24 +1,52 @@
-package com.example.practicalfive;
+package com.example.practicalfive;  // 你的包名
 
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    private EditText municipalityEditText;
+    private TextProcessor textProcessor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        textProcessor = new TextProcessor();
+        municipalityEditText = findViewById(R.id.municipalityEditText);
+
+        municipalityEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_GO) {
+                    handleInput();
+                    return true;
+                }
+                return false;
+            }
         });
+    }
+
+    private void handleInput() {
+        String input = municipalityEditText.getText().toString();
+        String result = textProcessor.processMunicipality(input);
+
+        if (result == null) {
+            if (input.trim().isEmpty()) {
+                municipalityEditText.setError("Please enter a municipality name");
+            } else {
+                municipalityEditText.setError("Invalid municipality. Try Beijing, Shanghai, Tianjin, or Chongqing");
+            }
+        } else {
+            Intent intent = new Intent(MainActivity.this, Municipality.class);
+            intent.putExtra("municipality_name", result);
+            startActivity(intent);
+        }
     }
 }

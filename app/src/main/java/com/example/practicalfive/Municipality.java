@@ -85,12 +85,16 @@ public class Municipality extends AppCompatActivity {
         infoTextView.setText(municipalities[textIndex]);
         infoTextView.setTextColor(color);
 
-        visitButton.getBackground().setTint(color);
+        visitButton.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
 
         // 隐式 Intent
         visitButton.setOnClickListener(v -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(officialUrl));
-            startActivity(browserIntent);
+            try {
+                startActivity(browserIntent);
+            } catch (android.content.ActivityNotFoundException e) {
+                Toast.makeText(this, "No browser available to open the website", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }
