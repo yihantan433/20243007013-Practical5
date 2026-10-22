@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/color_default_background">
+
+    <TextView
+        android:id="@+id/municipalityNameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="City Name"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="@color/color_text_light"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="@color/municipality_beijing" />
+
+    <ImageView
+        android:id="@+id/municipalityImageView"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        android:contentDescription="Municipality image" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/infoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Information..."
+            android:textSize="16sp"
+            android:lineSpacingMultiplier="1.2"
+            android:textColor="@color/color_text_dark" />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/visitSiteButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visit site"
+        android:textColor="@color/color_text_light"
+        android:backgroundTint="@color/municipality_beijing"
+        android:layout_margin="16dp" />
+
+</LinearLayout>
